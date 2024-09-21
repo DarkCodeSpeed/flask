@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flask API Example</title>
+</head>
+<body>
+    <h1>Flask API Integration</h1>
+    <form id="dataForm">
+        <input type="text" name="inputData" placeholder="Enter some data" required>
+        <button type="submit">Submit</button>
+    </form>
+    
+    <div id="response"></div>
+
+    <script>
+        document.getElementById('dataForm').onsubmit = async function(event) {
+            event.preventDefault();
+            const inputData = event.target.inputData.value;
+
+            const response = await fetch('/api/data', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ inputData }),
+            });
+
+            const jsonResponse = await response.json();
+            document.getElementById('response').innerText = JSON.stringify(jsonResponse);
+        };
+    </script>
+</body>
+</html>
